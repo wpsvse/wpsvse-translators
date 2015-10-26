@@ -176,7 +176,7 @@ function wpsvse_change_title_text_translators( $title ){
      $screen = get_current_screen();
  
      if  ( 'wpsvse_translators' == $screen->post_type ) {
-          $title = 'Ange översättarens namn i form av användarnamn på wp.org ';
+          $title = 'Ange översättarens namn i form av användarnamn på wordpress.org ';
      }
  
      return $title;
@@ -218,7 +218,7 @@ function wpsvse_translator_meta() {
 
 	$cmb = new_cmb2_box( array(
 		'id'           => $prefix . 'translator_metabox',
-		'title'        => __( 'Extra uppgifter för översättare', 'wpsvse' ),
+		'title'        => __( 'Uppgifter för översättare', 'wpsvse' ),
 		'object_types' => array( 'wpsvse_translators' ),
 		'context'      => 'normal',
 		'priority'     => 'high',
@@ -235,14 +235,14 @@ function wpsvse_translator_meta() {
 		'name' => __( 'Namn', 'wpsvse' ),
 		'id' => $prefix . 'validator_name',
 		'type' => 'text_medium',
-		'desc' => __( 'Ange namnet på den som skickat förfrågan om valideringsroll.', 'wpsvse' ),
+		'desc' => __( 'Ange namnet på den som skickat förfrågan om valideringsroll. (Visas inte offentligt).', 'wpsvse' ),
 	) );
 
 	$cmb->add_field( array(
 		'name' => __( 'E-post', 'wpsvse' ),
 		'id' => $prefix . 'validator_email',
 		'type' => 'text_email',
-		'desc' => __( 'Ange e-postadress för den som skickat in förfrågan om valideringsroll.', 'wpsvse' ),
+		'desc' => __( 'Ange e-postadress för den som skickat in förfrågan om valideringsroll. (Visas inte offentligt).', 'wpsvse' ),
 	) );
 
 }
@@ -276,7 +276,7 @@ function wpsvse_project_meta() {
 		'name' => __( 'ID för project', 'wpsvse' ),
 		'id' => $prefix . 'project-id',
 		'type' => 'text_medium',
-		'desc' => __( 'Ange den unika delen av urlen för projektet. Ex. <code>https://translate.wordpress.org/locale/sv/default/wp-plugins/<strong style="color:#F00;">bbpress</strong></code>, här är <code>bbpress</code> projektets unika ID.', 'wpsvse' ),
+		'desc' => __( 'Ange den unika delen av urlen för projektet. Ex. <code>https://translate.wordpress.org/locale/sv/default/wp-plugins/<strong style="color:#F00;">bbpress</strong>/</code> eller <code>https://wordpress.org/plugins/<strong style="color:#F00;">bbpress</strong>/</code> här är <code>bbpress</code> projektets unika ID.', 'wpsvse' ),
 	) );
 
 }
@@ -383,7 +383,22 @@ function wpsvse_connection_types() {
     p2p_register_connection_type( array(
         'name' => 'translator_to_projects',
         'from' => 'wpsvse_translators',
-        'to' => 'wpsvse_projects'
+        'to' => 'wpsvse_projects',
+				'title' => array(
+					'from' => __( 'Associera projekt', 'wpsvse' ),
+					'to' => __( 'Associera översättare', 'wpsvse' )
+				),
+				'admin_box' => array(
+					'context' => 'advanced',
+				),
+				'from_labels' => array(
+						'singular_name' => __( 'Associera projekt', 'wpsvse' ),
+						'create' => __( 'Skapa association', 'wpsvse' ),
+				),
+				'to_labels' => array(
+						'singular_name' => __( 'Associera översättare', 'wpsvse' ),
+						'create' => __( 'Skapa association', 'wpsvse' ),
+				),
     ) );
 		
 }
