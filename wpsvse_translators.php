@@ -101,6 +101,11 @@ function wpsvse_tax_projecttype() {
 		'search_items'               => __( 'Sök projekttyper', 'wpsvse' ),
 		'not_found'                  => __( 'Kunde inte hittas', 'wpsvse' ),
 	);
+	$rewrite = array(
+		'slug'                       => 'projekttyp',
+		'with_front'                 => true,
+		'hierarchical'               => false,
+	);
 	$args = array(
 		'labels'                     => $labels,
 		'hierarchical'               => false,
@@ -109,6 +114,7 @@ function wpsvse_tax_projecttype() {
 		'show_admin_column'          => true,
 		'show_in_nav_menus'          => true,
 		'show_tagcloud'              => true,
+		'rewrite'                    => $rewrite,
 	);
 	register_taxonomy( 'wpsvse_project_type', array( 'wpsvse_projects' ), $args );
 
@@ -274,7 +280,7 @@ function wpsvse_project_meta() {
 	
 	$cmb->add_field( array(
 		'name' => __( 'ID för project', 'wpsvse' ),
-		'id' => $prefix . 'project-id',
+		'id' => $prefix . 'project_id',
 		'type' => 'text_medium',
 		'desc' => __( 'Ange den unika delen av urlen för projektet. Ex. <code>https://translate.wordpress.org/locale/sv/default/wp-plugins/<strong style="color:#F00;">bbpress</strong>/</code> eller <code>https://wordpress.org/plugins/<strong style="color:#F00;">bbpress</strong>/</code> här är <code>bbpress</code> projektets unika ID.', 'wpsvse' ),
 	) );
