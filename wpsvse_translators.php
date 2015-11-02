@@ -409,3 +409,16 @@ function wpsvse_connection_types() {
 		
 }
 add_action( 'p2p_init', 'wpsvse_connection_types' );
+
+/**
+ * Set custom search template for projects
+ */
+function wpsvse_search_translation_projects($template) {    
+  global $wp_query;
+  $post_type = get_query_var('post_type');
+  if( $wp_query->is_search && $post_type == 'wpsvse_projects' || $wp_query->is_search && $post_type == 'wpsvse_translators' ) {
+    return locate_template('translator-search.php');
+  }
+  return $template;
+}
+add_filter('template_include', 'wpsvse_search_translation_projects');
