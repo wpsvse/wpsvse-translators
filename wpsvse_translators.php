@@ -295,7 +295,7 @@ add_filter('frm_setup_edit_fields_vars', 'wpsvse_set_projects_select', 20, 2); /
 
 function wpsvse_set_projects_select($values, $field){
 
-if( $field->id == 180 ){ // ID of the field to populate
+if( $field->id == 129 ){ // ID of the field to populate
 		$posts = get_posts( array('post_type' => 'wpsvse_projects', 'post_status' => array('publish'),  'numberposts' => 999, 'orderby' => 'title', 'order' => 'ASC'));
 		unset($values['options']);
 		$values['options'][''] = 'Välj projekt&hellip;';
@@ -316,7 +316,7 @@ add_filter('frm_setup_edit_fields_vars', 'wpsvse_set_translators_select', 20, 2)
 
 function wpsvse_set_translators_select($values, $field){
 
-if( $field->id == 187 ){ // ID of the field to populate
+if( $field->id == 135 ){ // ID of the field to populate
 		$posts = get_posts( array('post_type' => 'wpsvse_translators', 'post_status' => array('publish'),  'numberposts' => 999, 'orderby' => 'title', 'order' => 'ASC'));
 		unset($values['options']);
 		$values['options'][''] = 'Välj validerare&hellip;';
@@ -334,13 +334,13 @@ return $values;
  */
 add_filter('frm_validate_field_entry', 'wpsvse_get_project_title', 10, 3);
 function wpsvse_get_project_title($errors, $posted_field, $posted_value){
-  if ( $posted_field->id == 198 ) { // field to change
-		$titleid = $_POST['item_meta'][180]; // field to copy
+  if ( $posted_field->id == 133 ) { // field to change
+		$titleid = $_POST['item_meta'][129]; // field to copy
 		$projecttitle = get_the_title( $titleid );
     $_POST['item_meta'][$posted_field->id] = $projecttitle; 
   }
-	if ( $posted_field->id == 206) { // field to change
-		$titleid = $_POST['item_meta'][187]; // field to copy
+	if ( $posted_field->id == 143) { // field to change
+		$titleid = $_POST['item_meta'][135]; // field to copy
 		$translatortitle = get_the_title( $titleid );
     $_POST['item_meta'][$posted_field->id] = $translatortitle; 
   }
@@ -351,21 +351,21 @@ function wpsvse_get_project_title($errors, $posted_field, $posted_value){
  * Create dynamic connection between translator and project
  */
 function create_dynamic_post_connection($entry_id, $form_id){
-	if ($form_id == 10){
-    if (!empty( $_POST['item_meta'][195] )){
+	if ($form_id == 3){
+    if (!empty( $_POST['item_meta'][141] )){
     	// get project ID
-    	$project_id = $_POST['item_meta'][195];
+    	$project_id = $_POST['item_meta'][141];
 		} else {
 			// get project ID
-    	$project_id = $_POST['item_meta'][197];
+    	$project_id = $_POST['item_meta'][142];
 		} 
-		if (!empty( $_POST['item_meta'][107] )){   	
+		if (!empty( $_POST['item_meta'][17] )){   	
 			// get ID of post to be created
 			global $frmdb;
     	$translator_id = $frmdb->get_var( $frmdb->entries, array('id' => $entry_id), 'post_id' );
 		} else {
 			// get translator ID
-			$translator_id = $_POST['item_meta'][187];
+			$translator_id = $_POST['item_meta'][135];
 		}
 		// Create connection
 		p2p_create_connection( 'translator_to_projects', array(
