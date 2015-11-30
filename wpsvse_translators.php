@@ -422,3 +422,22 @@ function wpsvse_search_translation_projects($template) {
   return $template;
 }
 add_filter('template_include', 'wpsvse_search_translation_projects');
+
+/**
+ * Set query attributes for translation project archives
+ */
+function wpsvse_translation_projects_query($query) {
+  if ( !is_admin() && $query->is_main_query() ) {
+    if ($query->is_post_type_archive('wpsvse_projects')) {
+      $query->set('post_type', 'wpsvse_projects');
+			$query->set('orderby', 'title');
+			$query->set('order', 'ASC');
+    }
+    if ($query->is_post_type_archive('wpsvse_translators')) {
+      $query->set('post_type', 'wpsvse_translators');
+			$query->set('orderby', 'title');
+			$query->set('order', 'ASC');
+    }
+  }
+}
+add_action('pre_get_posts','wpsvse_translation_projects_query');
