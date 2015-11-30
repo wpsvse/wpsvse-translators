@@ -432,11 +432,13 @@ function wpsvse_translation_projects_query($query) {
       $query->set('post_type', 'wpsvse_projects');
 			$query->set('orderby', 'title');
 			$query->set('order', 'ASC');
+			$query->set(array( 'paged' => get_query_var( 'paged' ) ));
     }
     if ($query->is_post_type_archive('wpsvse_translators')) {
       $query->set('post_type', 'wpsvse_translators');
 			$query->set('orderby', 'title');
 			$query->set('order', 'ASC');
+			$query->set(array( 'paged' => get_query_var( 'paged' ) ));
     }
   }
 }
